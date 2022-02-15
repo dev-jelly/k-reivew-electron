@@ -13,30 +13,53 @@ const commentListUrl = (id: string, page: number = 1) => {
 
 const router = new Router();
 
+const requestComment = async (id: string, page?: number): Promise<any[]> => {
+  const commentList = await axios.get(commentListUrl(id, page));
+  const {
+    data: { comment },
+  } = commentList;
+  if (!comment?.list) return [];
+
+  const definedList = comment?.list?.map((comment: any) => {
+    const { commentid, contents, point, username, date } = comment;
+    return { commentid, contents, point, username, date };
+  });
+  return definedList;
+};
+// main information
+// main url https://place.map.kakao.com/main/v/17733090?_=1644854828810
 router.get('/:id', async (ctx: Context, next: Next) => {
-  const id = ctx.params.id as string;
+  const id = ctx.params.id.match(/\d/g)?.join('') as string;
+
   try {
     const commentList = await axios.get(commentListUrl(id));
     const {
       data: { comment },
     } = commentList;
     console.log('data', comment);
-    const pages = Math.floor((comment.kamapComntcnt as number) / 5) + 1;
+    const pages =
+      Math.floor((comment.kamapComntcnt as number) / 5) +
+      ((comment.kamapComntcnt as number) % 5 > 0 ? 1 : 0);
     let comments = [...comment.list];
+
+    const requestList = [];
+    // Extract request
     for (let i = 2; i <= pages; i++) {
-      const commentList = await axios.get(commentListUrl(id, i));
-      const {
-        data: { comment },
-      } = commentList;
-      comments = [...comments, ...comment?.list];
+      requestList.push(requestComment(id, i));
     }
+
+    comments = [
+      ...comments,
+      ...(await Promise.all(requestList)).flatMap((x) => x),
+    ];
+
     ctx.body = comments;
   } catch (e) {
     const error = e as Error;
     console.error(error.message);
     ctx.body = { error: error.message };
-    return;
   }
+  await next();
 });
 
 app.use(cors({ origin: '*' }));

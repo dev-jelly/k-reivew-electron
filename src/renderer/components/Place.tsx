@@ -2,6 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { extractId } from 'renderer/App';
 import CommentView, { Comment } from 'renderer/components/CommentView';
 
+export interface IPlace {
+  id: string;
+  name: string;
+  avgScore: number;
+  sumScore: number;
+  comments: Comment[];
+}
+
 export interface PlaceProps {
   url: string;
   filter: number;
@@ -9,10 +17,10 @@ export interface PlaceProps {
 }
 
 export const Place: React.FC<PlaceProps> = ({ url, filter, setError }) => {
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [place, setPlace] = useState<IPlace | null>(null);
   useEffect(() => {
     if (!url || url.match(/w+/)) {
-      setComments([]);
+      setPlace(null);
     }
     (async () => {
       try {
@@ -28,7 +36,7 @@ export const Place: React.FC<PlaceProps> = ({ url, filter, setError }) => {
         if (commentList.status === 200) {
           const json = await commentList.json();
           setError('');
-          setComments(json);
+          setPlace(json);
         } else {
           setError('잘못된 주소입니다.');
           console.error(`${commentList.status} ${commentList.statusText}`);
@@ -37,34 +45,27 @@ export const Place: React.FC<PlaceProps> = ({ url, filter, setError }) => {
         console.error(e.message);
       }
     })();
-  }, [url]);
+  }, [setError, url]);
 
   return (
     <>
-      {!!comments.length && (
+      {place && (
         <>
           <div className="mb-8">
-            <span>총 {comments.length}개 리뷰</span>
+            <span>총 {place.comments.length}개 리뷰</span>
             <span>
-              평점:{' '}
-              <b>
-                {(
-                  comments.reduce((a: Comment, b: Comment) => a + b.point, 0) /
-                  comments.length
-                ).toFixed(2)}
-                점
-              </b>{' '}
+              평점: <b>{place.avgScore.toFixed(2)}점</b>{' '}
               {filter !== 0 && (
                 <>
                   / {filter}점{' '}
-                  {comments.filter((c) => filter === c.point).length}개
+                  {place.comments.filter((c) => filter === c.point).length}개
                 </>
               )}
               ({extractId(url)})
             </span>
           </div>
           <div className="flex flex-col divide-y overflow-auto">
-            {comments
+            {place.comments
               .filter((c) => filter === 0 || filter === c.point)
               .map((c) => (
                 <CommentView key={c.commentid} comment={c} />

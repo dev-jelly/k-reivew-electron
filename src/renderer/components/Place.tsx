@@ -49,7 +49,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
           console.error(`${commentList.status} ${commentList.statusText}`);
         }
       } catch (e) {
-        console.error(e.message);
+        console.error(e);
       }
     })();
   }, [setError, url]);

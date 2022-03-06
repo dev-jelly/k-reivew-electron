@@ -2,14 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import { Place } from './components/Place';
 
-export const extractId = (url: string): string => {
-  return url
-    .replace('https://place.map.kakao.com/m/', '')
-    .replace('https://place.map.kakao.com/', '')
-    .split('#')[0]
-    .trim();
-};
-
 export const App: React.FC = () => {
   const [url, setUrl] = useState<string>(
     'https://place.map.kakao.com/1148545656'

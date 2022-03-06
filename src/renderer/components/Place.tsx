@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { extractId } from '../App';
-import CommentView, { Comment } from 'renderer/components/CommentView';
+import CommentView, { Comment } from './CommentView';
 import { DateFilter } from './DateFilter';
 import { ScoreBar } from './ScoreBar';
+
+export const extractId = (url: string): string => {
+  return url
+    .replace('https://place.map.kakao.com/m/', '')
+    .replace('https://place.map.kakao.com/', '')
+    .split('#')[0]
+    .trim();
+};
 
 export interface IPlace {
   id: string;
@@ -49,7 +56,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
           console.error(`${commentList.status} ${commentList.statusText}`);
         }
       } catch (e) {
-        console.error(String(e));
+        console.error(`${e}`);
       }
     })();
   }, [setError, url]);

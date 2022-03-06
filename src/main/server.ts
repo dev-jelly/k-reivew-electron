@@ -7,7 +7,7 @@ const Router = require('koa-router');
 
 const app = new Koa();
 
-const commentListUrl = (id: string, page: number = 1) => {
+const commentListUrl = (id: string, page = 1) => {
   return `https://place.map.kakao.com/commentlist/v/${id}/${page}?platform=`;
 };
 

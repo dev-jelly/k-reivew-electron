@@ -49,7 +49,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
           console.error(`${commentList.status} ${commentList.statusText}`);
         }
       } catch (e) {
-        console.error(e);
+        console.error(String(e));
       }
     })();
   }, [setError, url]);
@@ -58,7 +58,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
     if (place) {
       setComments(place.comments);
     }
-  }, [dateFilter]);
+  }, [dateFilter, place]);
 
   if (!place) {
     return <></>;

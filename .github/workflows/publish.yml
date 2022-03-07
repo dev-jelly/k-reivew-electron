@@ -21,10 +21,10 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Install Node and NPM
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
-          cache: 'npm'
+          node-version: '16'
+          cache: 'yarn'
 
       - name: Install dependencies
         run: |
@@ -45,8 +45,8 @@ jobs:
           npm exec electron-builder -- --publish always --win --mac --linux
       - name: Release
         uses: softprops/action-gh-release@v1
-          with:
-            draft: true
-            files: |
-              packages/desktop/release/build/*.dmg
-              packages/desktop/release/build/*.exe
+        with:
+          draft: true
+          files: |
+            packages/desktop/release/build/*.dmg
+            packages/desktop/release/build/*.exe

@@ -43,3 +43,10 @@ jobs:
           npm run postinstall
           npm run build
           npm exec electron-builder -- --publish always --win --mac --linux
+      - name: Release
+        uses: softprops/action-gh-release@v1
+          with:
+            draft: true
+            files: |
+              packages/desktop/release/build/*.dmg
+              packages/desktop/release/build/*.exe

@@ -2,16 +2,15 @@ name: Publish
 
 on:
   push:
-    branches:
-      - main
-
+    tags:
+      - "*.*.*"
 jobs:
   publish:
     # To enable auto publishing to github, update your electron publisher
     # config in package.json > "build" and remove the conditional below
     if: ${{ github.repository_owner == 'dev-jelly' }}
 
-    runs-on: ${{ matrix.os }}
+    runs-on: jellys-MBP
 
     strategy:
       matrix:

@@ -4,11 +4,7 @@ on: [push]
 
 jobs:
   publish:
-    # To enable auto publishing to github, update your electron publisher
-    # config in package.json > "build" and remove the conditional below
-    if: ${{ github.repository_owner == 'dev-jelly' }}
-
-    runs-on: jellys-MBP
+    runs-on: macOS
 
     steps:
       - name: Checkout git repo

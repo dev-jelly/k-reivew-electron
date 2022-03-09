@@ -22,7 +22,7 @@ jobs:
         run: |
           yarn postinstall
           yarn build
-          yarn pacakge
+          yarn package
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

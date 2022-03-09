@@ -1,7 +1,9 @@
 name: Publish
 
-on: [push]
-
+on:
+  push:
+    tags:
+      - "*.*.*"
 jobs:
   publish:
     runs-on: macOS
@@ -26,7 +28,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          draft: true
           files: |
             release/build/*.dmg
             release/build/*.exe

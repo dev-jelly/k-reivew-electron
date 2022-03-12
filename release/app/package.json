@@ -1,12 +1,12 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.5.0",
-  "description": "A foundation for scalable desktop apps",
+  "name": "k-review-electron",
+  "version": "2022.03.12 ",
+  "description": "Kakao Map Review for Angry RTA",
   "main": "./dist/main/main.js",
   "author": {
     "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "email": "chm073@gmail.com",
+    "url": "https://github.com/dev-jelly/k-review-electron"
   },
   "scripts": {
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",

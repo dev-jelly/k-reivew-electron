@@ -4,7 +4,7 @@
   "description": "Kakao Map Review for Angry RTA",
   "main": "./dist/main/main.js",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
+    "name": "Dev jelly",
     "email": "chm073@gmail.com",
     "url": "https://github.com/dev-jelly/k-review-electron"
   },

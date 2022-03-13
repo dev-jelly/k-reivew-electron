@@ -58,28 +58,28 @@ export const DateFilter: React.FC<DateFilterProps> = ({
         <button
           type="button"
           onClick={() => recentReviews()}
-          className="text-gray-600 hover:text-blue-600"
+          className="text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300"
         >
           전체 보기
         </button>
         <button
           type="button"
           onClick={() => recentReviews(3)}
-          className="text-gray-600 hover:text-blue-600"
+          className="text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300"
         >
           최근 3개월
         </button>
         <button
           type="button"
           onClick={() => recentReviews(6)}
-          className="text-gray-600 hover:text-blue-600"
+          className="text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300"
         >
           최근 6개월
         </button>
         <button
           type="button"
           onClick={() => recentReviews(12)}
-          className="text-gray-600 hover:text-blue-600"
+          className="text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300"
         >
           최근 1년
         </button>
@@ -92,14 +92,14 @@ export const DateFilter: React.FC<DateFilterProps> = ({
           }
           onChange={(e) => setStartDate(new Date(e.target.value))}
           disabled={!startDate}
-          className="p-1 border border-gray-400 rounded-lg "
+          className="p-1 border border-gray-400 rounded-lg dark:text-gray-600 "
         />
         <span className="py-2">~</span>
         <input
           type="date"
           value={endDate.toISOString().split('T')[0]}
           onChange={(e) => setEndDate(new Date(e.target.value))}
-          className="p-1 border border-gray-400 rounded-lg disabled:bg-gray-600"
+          className="p-1 border border-gray-400 rounded-lg disabled:bg-gray-600 dark:text-gray-600"
         />
       </div>
     </div>

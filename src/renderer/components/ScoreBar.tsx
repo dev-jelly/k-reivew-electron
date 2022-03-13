@@ -22,12 +22,18 @@ export const ScoreBar: React.FC<ScoreBarProps> = ({
       className="flex w-full hover:opacity-80 cursor-pointer"
     >
       {filter === point && (
-        <button type="button" className="text-lg  font-bold text-black">
+        <button
+          type="button"
+          className="text-lg  font-bold text-black dark:text-white"
+        >
           {point}
         </button>
       )}
       {filter !== point && (
-        <button type="button" className="text-lg text-gray-600">
+        <button
+          type="button"
+          className="text-lg text-gray-600 dark:text-gray-300"
+        >
           {point}
         </button>
       )}
@@ -43,7 +49,7 @@ export const ScoreBar: React.FC<ScoreBarProps> = ({
         {filter !== point && (
           <div
             style={{ width: `${percent}%`, height: '4px' }}
-            className="bg-orange-300 "
+            className="bg-orange-300"
           >
             {' '}
           </div>

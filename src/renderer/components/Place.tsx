@@ -56,6 +56,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
           console.error(`${commentList.status} ${commentList.statusText}`);
         }
       } catch (e) {
+        setError(`${e}`);
         console.error(`${e}`);
       }
     })();
@@ -119,7 +120,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
             <button
               type="button"
               onClick={() => setDateFilter(true)}
-              className="text-gray-600 hover:text-blue-600 text-lg "
+              className="text-gray-600 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-300 text-lg "
             >
               기간설정
             </button>
@@ -129,7 +130,7 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
       <div className="flex w-full py-4 justify-center">
         <div className="w-2/3 h-0.5 bg-gray-100" />
       </div>
-      <div className="flex flex-col divide-y overflow-auto w-full">
+      <div className="flex flex-col divide-y dark:divide-gray-500 overflow-auto w-full">
         {comments
           .filter((c) => filter === 0 || filter === c.point)
           .map((c) => (

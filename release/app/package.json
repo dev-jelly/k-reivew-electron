@@ -1,6 +1,6 @@
 {
   "name": "k-review-electron",
-  "version": "2022.03.12",
+  "version": "2022.03.13",
   "description": "Kakao Map Review for Angry RTA",
   "main": "./dist/main/main.js",
   "author": {

@@ -43,8 +43,8 @@ export const App: React.FC = () => {
             type="text"
             onChange={(e) => setUrl(e.target.value)}
           />
-          {!!error && <div className="text-red-600">{error}</div>}
         </div>
+        {!!error && <div className="text-red-600">{error}</div>}
         <Place url={url} setError={setError} />
       </div>
     </div>

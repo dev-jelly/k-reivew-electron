@@ -5,11 +5,36 @@ import {
   BrowserWindow,
   MenuItemConstructorOptions,
 } from 'electron';
+import path from 'path';
+import { resolveHtmlPath } from './util';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
   selector?: string;
   submenu?: DarwinMenuItemConstructorOptions[] | Menu;
 }
+
+const createNewWindow = () => {
+  const window = new BrowserWindow({
+    show: false,
+    width: 1024,
+    height: 768,
+    minWidth: 1024,
+    minHeight: 768,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: true,
+    },
+  });
+
+  window.loadURL(resolveHtmlPath('index.html'));
+  window.on('ready-to-show', () => {
+    if (!window) {
+      throw new Error('"mainWindow" is not defined');
+    }
+
+    window.show();
+  });
+};
 
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
@@ -57,14 +82,21 @@ export default class MenuBuilder {
       label: 'Electron',
       submenu: [
         {
-          label: 'About ElectronReact',
+          label: 'New Window',
+          accelerator: 'Command+N',
+          click() {
+            createNewWindow();
+          },
+        },
+        {
+          label: 'About KReview',
           selector: 'orderFrontStandardAboutPanel:',
         },
         { type: 'separator' },
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         {
-          label: 'Hide ElectronReact',
+          label: 'Hide KReview',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
@@ -197,6 +229,13 @@ export default class MenuBuilder {
       {
         label: '&File',
         submenu: [
+          {
+            label: '&New Window',
+            accelerator: 'Ctrl+N',
+            click() {
+              createNewWindow();
+            },
+          },
           {
             label: '&Open',
             accelerator: 'Ctrl+O',

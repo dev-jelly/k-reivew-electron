@@ -47,6 +47,10 @@ export const Place: React.FC<PlaceProps> = ({ url, setError }) => {
         );
         if (commentList.status === 200) {
           const json = await commentList.json();
+          if (json.error) {
+            setError(json.error);
+            return;
+          }
           setError('');
           setPlace(json);
           setDateFilter(false);
